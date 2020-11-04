@@ -25,9 +25,34 @@ router.use(function timeLog (req, res, next) {
 })
 
 /// ..................................................
-router.get('/', productPage);
+router.get('/product', productPage);
 function productPage(req, res) {
-    res.send('PRODUCT: Home page');
+    if (session.user) 
+    {
+        MongoClient.connect(urldb, { useUnifiedTopology: true }, function(err, db) {
+            if (err) throw err;
+            var dbo = db.db("shopsmall");
+            dbo.collection("product").find({}).toArray(function(err, productlist) {
+              if (err) throw err;
+            
+                res.render("pages/product-list",  {
+                    title: "ATN-Shop PRODUCT page", 
+                    username: session.user.username,
+                    products : productlist 
+                    , configHeader: configHeader , currpage: "Product"
+                    });
+                console.log('Found:', productlist);
+
+              db.close();
+            });
+          });
+                    
+
+        
+    } else {
+        res.redirect('/login');
+    }    
+    console.log("\n\t ... connect PRODUCT from ", req.connection.remoteAddress, req.headers.host);
 }
 /*
 function productPage(req, res) {

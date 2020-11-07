@@ -54,40 +54,8 @@ function productPage(req, res) {
     }    
     console.log("\n\t ... connect PRODUCT from ", req.connection.remoteAddress, req.headers.host);
 }
-/*
-function productPage(req, res) {
-    if (session.user) 
-    {
-        MongoClient.connect(urldb, { useUnifiedTopology: true }, function(err, db) {
-            if (err) throw err;
-            var dbo = db.db("shopsmall");
-            dbo.collection("product").find({}).toArray(function(err, productlist) {
-              if (err) throw err;
-              //libDB.res_queryDB(MongoClient, urldb, "shopsmall", "product",
-                //"pages/product-list", {title: "ATN-Shop PRODUCT page" , configHeader: configHeader , currpage: "Product"}, res );
-                
-                res.render("pages/product-list",  {
-                    title: "ATN-Shop PRODUCT page", 
-                    username: session.user.username,
-                    products : productlist 
-                    , configHeader: configHeader , currpage: "Product"
-                    });
-                console.log('Found:', productlist);
 
-              db.close();
-            });
-          });
-                    
-
-        
-    } else {
-        res.redirect('/login');
-    }    
-    console.log("\n\t ... connect PRODUCT from ", req.connection.remoteAddress, req.headers.host);
-}
-*/
-
-/// ..................................................
+..................................................
 router.get('/list', listProductPage);
 function listProductPage(req, res) {
     res.send('PRODUCT: list PRODUCT page');
